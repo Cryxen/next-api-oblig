@@ -56,31 +56,34 @@ const PollPage = () => {
   return (
     <div className="pollPage">
       <h1>Pollpage</h1>
-      <form onSubmit={formSubmit}>
-        <p>Hva synes du om dårlgi mat?</p>
-        <label htmlFor={checkbox1}>{checkbox1}</label>
-        <input
-          type="checkbox"
-          name={checkbox1}
-          value={checkbox1}
-          onChange={handleCheckBox}
-        />
-        <label htmlFor={checkbox2}>{checkbox2}</label>
-        <input
-          type="checkbox"
-          name={checkbox2}
-          value={checkbox2}
-          onChange={handleCheckBox}
-        />
-        <label htmlFor={checkbox3}>{checkbox3}</label>
-        <input
-          type="checkbox"
-          name={checkbox3}
-          value={checkbox3}
-          onChange={handleCheckBox}
-        />
-        <button type="submit">Submit poll</button>
-      </form>
+      {polls?.map((poll) => 
+              <form onSubmit={formSubmit} key={poll.id}>
+              <p>{poll.question}</p>
+              <label htmlFor={poll.checkbox1}>{poll.checkbox1}</label>
+              <input
+                type="checkbox"
+                name={poll.checkbox1}
+                value={poll.checkbox1}
+                onChange={handleCheckBox}
+              />
+              <label htmlFor={poll.checkbox2}>{poll.checkbox2}</label>
+              <input
+                type="checkbox"
+                name={poll.checkbox2}
+                value={poll.checkbox2}
+                onChange={handleCheckBox}
+              />
+              <label htmlFor={poll.checkbox3}>{poll.checkbox3}</label>
+              <input
+                type="checkbox"
+                name={poll.checkbox3}
+                value={poll.checkbox3}
+                onChange={handleCheckBox}
+              />
+              <button type="submit">Submit poll</button>
+            </form>
+      )}
+     
     </div>
   );
 };
