@@ -1,0 +1,7 @@
+@startuml flow
+Poll -> API : Bruker trykker på et valg. Sendes til API med POST
+API -> Controller : API registreres
+Controller -> Service  : Controller sjekker verdier om at de er gyldige. 
+Service -> Repository : Service behandler data ved hjelp av repository
+Repository -> DB: Poll registreres i DB
+@enduml
