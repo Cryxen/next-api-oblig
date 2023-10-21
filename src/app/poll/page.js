@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Layout from "../components/Layout";
 
 const PollPage = () => {
   const [isChecked, setIsChecked] = useState([]);
@@ -55,6 +56,7 @@ const PollPage = () => {
   };
   return (
     <div className="pollPage">
+        <Layout>
       <h1>Pollpage</h1>
       {polls?.map((poll) => 
               <form onSubmit={formSubmit} key={poll.id}>
@@ -83,7 +85,7 @@ const PollPage = () => {
               <button type="submit">Submit poll</button>
             </form>
       )}
-     
+     </Layout>
     </div>
   );
 };
