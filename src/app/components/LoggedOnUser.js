@@ -8,6 +8,7 @@ import axios from "axios";
 
 const LoggedOnUser = () => {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [loggedOnUser, setLoggedOnUser] = useState(() => {
     const saved = localStorage.getItem("username");
     const initialValue = JSON.parse(saved);
@@ -17,14 +18,17 @@ const LoggedOnUser = () => {
   const handleUsernameInput = (event) => {
     setUsername(event.target.value);
   };
+  const handleEmailInput = (event) => {
+    setEmail(event.target.value);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     localStorage.setItem("username", JSON.stringify(username));
-    setLoggedOnUser(username)
+    setLoggedOnUser(username);
 
     axios
-      .post("/api/users", JSON.stringify(username))
+      .post("/api/users", JSON.stringify(username, email)) // TODO: Connect to API later
       .then((response) => {
         console.log(response);
       })
@@ -33,11 +37,11 @@ const LoggedOnUser = () => {
       });
   };
   console.log(loggedOnUser);
-  
+
   const logout = () => {
-    localStorage.removeItem("username")
-    setLoggedOnUser('')
-  }
+    localStorage.removeItem("username");
+    setLoggedOnUser("");
+  };
   if (loggedOnUser) {
     return (
       <>
@@ -54,6 +58,8 @@ const LoggedOnUser = () => {
           onChange={handleUsernameInput}
           name="usernameInput"
         />
+        <label htmlFor="emailInput">E-post: </label>
+        <input type="email" onChange={handleEmailInput} name="emailInput" />
         <button type="submit">Lag bruker</button>
       </form>
     );
