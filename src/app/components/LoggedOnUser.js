@@ -2,6 +2,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+/*
+    For local storage I used this source: https://blog.logrocket.com/using-localstorage-react-hooks/ 
+*/
+
 const LoggedOnUser = () => {
   const [username, setUsername] = useState("");
   const [loggedOnUser, setLoggedOnUser] = useState(() => {
