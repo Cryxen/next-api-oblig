@@ -83,9 +83,11 @@ const PollPage = () => {
                 value={poll.checkbox3}
                 onChange={handleCheckBox}
               />
+              
               <button type="submit">Submit poll</button>
             </form>
       )}
+
     </div>
     </Layout>
 

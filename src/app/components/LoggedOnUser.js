@@ -1,9 +1,11 @@
 "use client"
 import { useState } from "react"
+import useLoggedOnUser from "../hooks/useLoggedOnUser"
 
 const LoggedOnUser = () => {
-    const [loggedOnUser, setLoggedOnUser] = useState()
     const [username, setUsername] = useState('')
+
+    const {loggedOnUser, logInUser} = useLoggedOnUser()
 
     const handleUsernameInput = (event) => {
         setUsername(event.target.value)
@@ -11,7 +13,7 @@ const LoggedOnUser = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        setLoggedOnUser(username)
+        logInUser(username)
         console.log("User logged on: " + loggedOnUser)
     }
 
