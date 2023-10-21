@@ -3,11 +3,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
+import useLoggedOnUser from "../hooks/useLoggedOnUser";
 
 const PollPage = () => {
   const [isChecked, setIsChecked] = useState([]);
   const [polls, setPolls] = useState([{}]);
+  const {loggedOnUser} = useLoggedOnUser;
 
+  console.log(loggedOnUser)
   // Fetch polls from API
   useEffect(() => {
     const fetchPollsFromAPI = async () => {
