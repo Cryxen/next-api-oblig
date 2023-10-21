@@ -14,3 +14,9 @@ export const Polls = [
         checkbox3: "alternativ 3"
     },
 ]
+
+export const PollDelivered = [{
+    username: '',
+    question: '',
+    checkedboxes: ['','','']
+}]

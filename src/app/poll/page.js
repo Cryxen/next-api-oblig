@@ -8,23 +8,19 @@ import useLoggedOnUser from "../hooks/useLoggedOnUser";
 const PollPage = () => {
   const [isChecked, setIsChecked] = useState([]);
   const [polls, setPolls] = useState([{}]);
-  const {loggedOnUser} = useLoggedOnUser;
+  const { loggedOnUser } = useLoggedOnUser;
 
-  console.log(loggedOnUser)
   // Fetch polls from API
   useEffect(() => {
     const fetchPollsFromAPI = async () => {
       const response = await axios("/api/polls");
       if (response.status === 200) {
-        setPolls(response.data.data)
-      }
-      else
-        console.log("Something went wrong")
+        setPolls(response.data.data);
+      } else console.log("Something went wrong");
     };
     fetchPollsFromAPI();
   }, []);
 
-  console.log(polls)
   // Function triggered when checking a checkbox
   const handleCheckBox = (event) => {
     console.log(event.target.value);
@@ -46,54 +42,60 @@ const PollPage = () => {
     }
   };
 
-  console.log(isChecked);
-
   const checkbox1 = "checkbox1";
   const checkbox2 = "checkbox2";
   const checkbox3 = "checkbox3";
 
   // Button handler for submitting form
   const formSubmit = (event) => {
-    console.log("Form submitted");
+    const pollToSubmit = {
+      username: localStorage.getItem("username"),
+      question: event.target.firstChild.innerHTML,
+      checkedboxes: isChecked,
+    };
+    console.log(pollToSubmit);
+    axios
+      .post("api/submitpoll", pollToSubmit)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => console.log(error));
     event.preventDefault();
   };
   return (
     <Layout>
+      <div className="pollPage">
+        <h1>Pollpage</h1>
+        {polls?.map((poll) => (
+          <form onSubmit={formSubmit} key={poll.id}>
+            <p>{poll.question}</p>
+            <label htmlFor={poll.checkbox1}>{poll.checkbox1}</label>
+            <input
+              type="checkbox"
+              name={poll.checkbox1}
+              value={poll.checkbox1}
+              onChange={handleCheckBox}
+            />
+            <label htmlFor={poll.checkbox2}>{poll.checkbox2}</label>
+            <input
+              type="checkbox"
+              name={poll.checkbox2}
+              value={poll.checkbox2}
+              onChange={handleCheckBox}
+            />
+            <label htmlFor={poll.checkbox3}>{poll.checkbox3}</label>
+            <input
+              type="checkbox"
+              name={poll.checkbox3}
+              value={poll.checkbox3}
+              onChange={handleCheckBox}
+            />
 
-    <div className="pollPage">
-      <h1>Pollpage</h1>
-      {polls?.map((poll) => 
-              <form onSubmit={formSubmit} key={poll.id}>
-              <p>{poll.question}</p>
-              <label htmlFor={poll.checkbox1}>{poll.checkbox1}</label>
-              <input
-                type="checkbox"
-                name={poll.checkbox1}
-                value={poll.checkbox1}
-                onChange={handleCheckBox}
-              />
-              <label htmlFor={poll.checkbox2}>{poll.checkbox2}</label>
-              <input
-                type="checkbox"
-                name={poll.checkbox2}
-                value={poll.checkbox2}
-                onChange={handleCheckBox}
-              />
-              <label htmlFor={poll.checkbox3}>{poll.checkbox3}</label>
-              <input
-                type="checkbox"
-                name={poll.checkbox3}
-                value={poll.checkbox3}
-                onChange={handleCheckBox}
-              />
-              
-              <button type="submit">Submit poll</button>
-            </form>
-      )}
-
-    </div>
+            <button type="submit">Submit poll</button>
+          </form>
+        ))}
+      </div>
     </Layout>
-
   );
 };
 export default PollPage;
