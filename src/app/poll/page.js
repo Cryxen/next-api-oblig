@@ -55,8 +55,9 @@ const PollPage = () => {
     event.preventDefault();
   };
   return (
+    <Layout>
+
     <div className="pollPage">
-        <Layout>
       <h1>Pollpage</h1>
       {polls?.map((poll) => 
               <form onSubmit={formSubmit} key={poll.id}>
@@ -85,8 +86,9 @@ const PollPage = () => {
               <button type="submit">Submit poll</button>
             </form>
       )}
-     </Layout>
     </div>
+    </Layout>
+
   );
 };
 export default PollPage;
