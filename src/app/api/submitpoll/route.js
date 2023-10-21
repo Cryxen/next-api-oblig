@@ -1,4 +1,4 @@
-import { PollDelivered } from "@/features/polls/Polls"
+import { PollDelivered } from "@/features/polls/Polls.repository"
 import { NextResponse } from "next/server"
 
 export const GET = () => {

@@ -1,4 +1,4 @@
-export const Polls = [
+const Polls = [
     {
         id: 1,
         question: "Hva synes du om dårlig mat?",
@@ -20,3 +20,13 @@ export const PollDelivered = [{
     question: '',
     checkedboxes: ['','','']
 }]
+
+export const addToPoll = async (poll) => {
+    const oldPoll = Polls.length
+    const newPoll = Polls.push(poll)
+
+    if(oldPoll < newPoll)
+        return {success: true, data: Polls}
+    else
+        return {success: false, error: "Failed to push poll object to Polls array in repository"}
+}
