@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server'
 import * as pollsService from './Polls.service'
 
 export const createPoll = async (req, res) => {
@@ -8,9 +9,9 @@ export const createPoll = async (req, res) => {
     //Send til service create poll
     const createdPoll = await pollsService.addToPoll(poll)
     console.log("Inside polls controller")
-    //    console.log(createdPoll)
     if(createdPoll.success) {
-        return res.status(201).json({
+        return NextResponse.json({
+            status: 201,
             success: true,
             data: createdPoll.data,
           })

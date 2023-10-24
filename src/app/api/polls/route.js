@@ -7,7 +7,6 @@ export const GET = () => {
 
 export const POST = async(req, res) => {
     console.log("POST FORSØK")
-    return(res.status(500))
-    //await pollsController.createPoll(req, res)
+    return await pollsController.createPoll(req, res)
     //console.log(createdPoll)
 }
