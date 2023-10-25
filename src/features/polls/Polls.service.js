@@ -1,6 +1,13 @@
+import { validate } from '@/lib/validation'
 import * as pollsRepo from './Polls.repository'
 export const addToPoll = async (poll) => {
+    console.log(poll.question)
     //Validering
+    if(!validate.containsQuestion(poll))
+        return{success: false, error: "Poll does not contain question"}
+
+    if(!validate.isQuestion(poll.question))
+        return {success: false, error: "Poll question does not include question mark"}
 
     const addedToPoll = await pollsRepo.addToPoll(poll)
 

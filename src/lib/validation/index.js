@@ -1,5 +1,5 @@
 export const validate = {
-    //Kilde til regex: https://fullstækk.no/courses/next-final/01-validering
+  //Kilde til regex: https://fullstækk.no/courses/next-final/01-validering
   isEmail(mail) {
     if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
       return true;
@@ -14,6 +14,21 @@ export const validate = {
         name
       )
     ) {
+      return true;
+    }
+    return false;
+  },
+
+  containsQuestion(poll) {
+    if ('question' in poll){
+      return true
+    }
+    return false
+  },
+
+  isQuestion(question) {
+    console.log(question)
+    if (/[?]/g.test(question)) {
       return true;
     }
     return false;
