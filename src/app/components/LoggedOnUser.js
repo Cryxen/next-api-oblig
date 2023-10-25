@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { validate } from "@/lib/validation";
 
 /*
     For local storage I used this source: https://blog.logrocket.com/using-localstorage-react-hooks/ 
@@ -14,6 +15,7 @@ const LoggedOnUser = () => {
     const initialValue = JSON.parse(saved);
     return initialValue || "";
   });
+  const [validationError, setValidationError] = useState(null);
 
   const handleUsernameInput = (event) => {
     setUsername(event.target.value);
@@ -24,17 +26,34 @@ const LoggedOnUser = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    localStorage.setItem("username", JSON.stringify(username));
-    setLoggedOnUser(username);
 
-    axios
-      .post("/api/users", JSON.stringify(username, email)) // TODO: Connect to API later
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
+    const isValidateEmail = validate.isEmail(email);
+    const isValidName = validate.isName(username);
+
+    if (!isValidName && !isValidateEmail) {
+      setValidationError({
+        username: "Navn må være fullt navn",
+        email: "E-post må være en ekste e-post adresse",
       });
+    } else if (!isValidName) {
+      setValidationError({ username: "Navn må være fullt navn" });
+    } else if (!isValidateEmail) {
+      setValidationError({ email: "E-post må være en ekste e-post adresse" });
+    } else {
+      setValidationError(null);
+
+      localStorage.setItem("username", JSON.stringify(username));
+      setLoggedOnUser(username);
+
+      axios
+        .post("/api/users", JSON.stringify(username, email)) // TODO: Connect to API later
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
   console.log(loggedOnUser);
 
@@ -52,6 +71,9 @@ const LoggedOnUser = () => {
   } else {
     return (
       <form onSubmit={handleSubmit}>
+        <div>
+          {validationError ? JSON.stringify(validationError) : null}
+        </div>
         <label htmlFor="usernameInput">Brukernavn: </label>
         <input
           type="text"

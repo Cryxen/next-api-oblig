@@ -3,8 +3,8 @@ import * as userService from './Users.service'
 
 export const createUser = async (req) => {
     const user = await req.json()
-
-    const createdUser = await userService.addUser(user)
+    const {name, email} = user
+    const createdUser = await userService.addUser(name, email)
     if (createdUser.success) {
         return NextResponse.json({
             status: 201,
@@ -13,6 +13,6 @@ export const createUser = async (req) => {
         })
     }
     else{
-        return {success: false, error: createdUser.error}
+        return NextResponse.json({success: false, error: createdUser.error})
     }
 }
