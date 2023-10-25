@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("file:./dev.db")
+}
+
+model User {
+  id    String  @id @default(cuid())
+  email String  @unique
+  name  String?
+  polls Poll[]
+}
+
+model Poll {
+  id        String  @id @default(cuid())
+  question  String  @unique
+  checkbox1 String?
+  checkbox2 String?
+  checkbox3 String?
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model PollDelivered {
+  id       String @id @default(cuid())
+  question String
+  checkboxes String
+}
