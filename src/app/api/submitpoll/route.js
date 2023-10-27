@@ -1,15 +1,12 @@
 import { PollDelivered } from "@/features/polls/Polls.repository"
 import { NextResponse } from "next/server"
+import * as pollsController from "@/features/polls/Polls.controller"
 
-export const GET = () => {
-    return NextResponse.json({data: PollDelivered, status: 200})
+export const GET = async() => {
+    return await pollsController.fetchDeliveredPollsFromDb()
 
 }
 
 export const POST = async(req) => {
-    console.log("POST FORSØK")
-    const data = await req.json()
-    console.log(data)
-    console.log(PollDelivered.push(data))
-    return NextResponse.json(data,{ status: 201 });
+    return await pollsController.pollDeliverPOST(req)
 }

@@ -31,5 +31,36 @@ export const getPoll = async () => {
   } catch (error) {
     return NextResponse.json({success: false, error: polls.error})
   }
+}
 
+export const pollDeliverPOST = async (req, res) => {
+  const poll = await req.json()
+  try {
+    const pollDeliver = await pollsService.pollDeliverPOST(poll)
+    console.log(pollDeliver)
+    return NextResponse.json({
+      status:201, 
+      success: true,
+      data: pollDeliver.data
+    })
+  } catch (error) {
+    return NextResponse.json({success: false, error: pollDeliver.error})
+  }
+}
+
+export const fetchDeliveredPollsFromDb = async () => {
+  try {
+      const deliveredPollsFromDb = await pollsService.fetchDeliveredPollsFromDb()
+      return NextResponse.json({
+        status:200,
+        success: true,
+        data: deliveredPollsFromDb.data
+      })
+  } catch (error) {
+      return NextResponse.json({
+        status:500,
+        success: false,
+        error: deliveredPollsFromDb.error
+      })
+  }
 }

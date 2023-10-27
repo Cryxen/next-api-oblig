@@ -6,8 +6,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const Users = [
-  {  name: "Initiell bruker", email: "navn@epost.no" },
-  {  name: "Gustav Eriksen", email: "GustavE@epost.no" },
+  { name: "Initiell bruker", email: "navn@epost.no" },
+  { name: "Gustav Eriksen", email: "GustavE@epost.no" },
 ];
 
 const Polls = [
@@ -24,6 +24,14 @@ const Polls = [
     checkbox3: "alternativ 3",
   },
 ];
+
+const DeliveredPolls = {
+  username: "testnavn",
+  question: "testspørsmål",
+  checkedboxes: ["1", "2", "3"],
+};
+
+
 
 const createPollsWithUsers = async () => {
   const pollPromises = Polls.map(async (poll, index) => {

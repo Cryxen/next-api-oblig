@@ -26,3 +26,22 @@ export const getPolls = async () => {
             return {success: false, error: polls.error}
         }
 }
+
+export const pollDeliverPOST = async (data) => {
+    console.log(data)
+    try {
+        const pollDeliver = await pollsRepo.pollDeliverPOST(data)
+        return({status: true, data: pollDeliver.data})
+    } catch (error) {
+        return {status:false, error: pollDeliver.error}
+    }
+}
+
+export const fetchDeliveredPollsFromDb = async () => {
+    try {
+        const deliveredPollsFromDb = await pollsRepo.fetchDeliveredPollsFromDb()
+        return {success: true, data: deliveredPollsFromDb.data}
+    } catch (error) {
+        return {success: false, error: deliveredPollsFromDb.error}
+    }
+}
