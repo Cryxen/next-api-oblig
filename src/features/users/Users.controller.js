@@ -16,3 +16,16 @@ export const createUser = async (req) => {
         return NextResponse.json({success: false, error: createdUser.error})
     }
 }
+
+export const fetchAllUsers = async () => {
+    try {
+        const usersFromDb = await userService.fetchAllUsers()
+        return NextResponse.json({
+            status: 200,
+            success: true,
+            data: usersFromDb.data
+        })
+    } catch (error) {
+        return NextResponse.json({success:false, error: usersFromDb.error})
+    }
+}

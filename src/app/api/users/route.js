@@ -1,8 +1,8 @@
 import { Users } from "@/features/users/Users.repository"
 import { NextResponse } from "next/server"
 import * as userController from '@/features/users/Users.controller'
-export const GET = () => {
-    return NextResponse.json({data: Users, status: 200})
+export const GET = async () => {
+    return await userController.fetchAllUsers()
 }
 
 export const POST = async(req) => {
