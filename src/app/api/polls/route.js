@@ -1,8 +1,8 @@
 import * as pollsController from '@/features/polls/Polls.controller'
 import { NextResponse } from "next/server"
 
-export const GET = () => {
-    return NextResponse.json({data: Polls, status: 200})
+export const GET = async () => {
+    return await pollsController.getPoll()
 }
 
 export const POST = async(req, res) => {

@@ -19,3 +19,17 @@ export const createPoll = async (req, res) => {
     return NextResponse.json({ success: false, error: createdPoll.error });
   }
 };
+
+export const getPoll = async () => {
+  try {
+    const polls =await pollsService.getPolls(); 
+    return NextResponse.json({
+      status: 200,
+      success: true,
+      data: polls.data
+    })
+  } catch (error) {
+    return NextResponse.json({success: false, error: polls.error})
+  }
+
+}

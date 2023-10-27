@@ -17,3 +17,12 @@ export const addToPoll = async (poll) => {
         return {success: false, error: addedToPoll.error}
 
 }
+
+export const getPolls = async () => {
+    try {const polls = await pollsRepo.fetchAllFromDb()
+        return {success: true, data: polls.data}
+    }
+        catch (error) {
+            return {success: false, error: polls.error}
+        }
+}

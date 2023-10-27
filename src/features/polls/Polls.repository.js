@@ -1,3 +1,5 @@
+import prisma from "@/lib/clients/db"
+
 const Polls = [
     {
         id: 1,
@@ -21,12 +23,35 @@ export const PollDelivered = [{
     checkedboxes: ['','','']
 }]
 
-export const addToPoll = async (poll) => {
-    const oldPoll = Polls.length
-    const newPoll = Polls.push(poll)
-
-    if(oldPoll < newPoll)
-        return {success: true, data: Polls}
-    else
-        return {success: false, error: "Failed to push poll object to Polls array in repository"}
+export const fetchAllFromDb = async () => {
+    try {
+        const polls = await prisma.Poll.findMany()
+        return {success: true, data: polls}
+    } catch (error) {
+        return {success: false, error: "Failed to retrieve polls from db"}
+    }
 }
+
+export const addToPoll = async({question, checkbox1, checkbox2, checkbox3, userId}) => {
+    try {
+        console.log(question, checkbox1, checkbox2, checkbox3, userId)
+        const newPoll = await prisma.Poll.create({data:{
+            question,
+            checkbox1,
+            checkbox2,
+            checkbox3,
+            user: {
+                connect: {
+                    id: userId
+                }
+            }
+            }
+        })
+        return {success: true, data: newPoll}
+    } catch (error) {
+        console.log(error)
+        return {success: false, error: "Failed to add new poll to db with prisma"}
+    }
+}
+
+
