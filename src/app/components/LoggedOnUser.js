@@ -42,17 +42,21 @@ const LoggedOnUser = () => {
     } else {
       setValidationError(null);
 
-      localStorage.setItem("username", JSON.stringify(username));
       setLoggedOnUser(username);
-
+      const user = {name: username, email: email}
+      console.log(user)
       axios
-        .post("/api/users", JSON.stringify(username, email)) // TODO: Connect to API later
+        .post("/api/users", (user)) // TODO: Connect to API later
         .then((response) => {
-          console.log(response);
+          console.log(response.data.data.id);
+        localStorage.setItem("userId", JSON.stringify(response.data.data.id));
+
         })
         .catch((error) => {
           console.log(error);
         });
+
+
     }
   };
   console.log(loggedOnUser);

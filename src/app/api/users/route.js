@@ -7,6 +7,7 @@ export const GET = async () => {
 
 export const POST = async(req) => {
     console.log("POST FORSØK")
+    console.log(req)
     /*
     const data = await req.json()
     console.log(data)

@@ -3,6 +3,7 @@ import * as userService from './Users.service'
 
 export const createUser = async (req) => {
     const user = await req.json()
+    console.log(user)
     const {name, email} = user
     const createdUser = await userService.addUser(name, email)
     if (createdUser.success) {
