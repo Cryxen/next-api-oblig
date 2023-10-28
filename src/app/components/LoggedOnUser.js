@@ -69,13 +69,15 @@ const LoggedOnUser = () => {
   };
   if (loggedOnUser) {
     return (
-      <>
-        <p>{loggedOnUser}</p>
+      <div className="loggedOnUserComponent">
+        <p>Pålogget bruker: {loggedOnUser}</p>
         <button onClick={logout}>Logg ut</button>
-      </>
+      </div>
+
     );
   } else {
     return (
+      <div className="loggedOnUserComponent">
       <form onSubmit={handleSubmit}>
         <div>{validationError ? JSON.stringify(validationError) : null}</div>
         <label htmlFor="usernameInput">Brukernavn: </label>
@@ -88,6 +90,8 @@ const LoggedOnUser = () => {
         <input type="email" onChange={handleEmailInput} name="emailInput" />
         <button type="submit">Lag bruker</button>
       </form>
+      </div>
+
     );
   }
 };
