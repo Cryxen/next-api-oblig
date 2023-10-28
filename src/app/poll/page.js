@@ -66,7 +66,7 @@ const PollPage = () => {
   return (
     <Layout>
       <div className="pollPage">
-        <h1>Pollpage</h1>
+        <h1>Spørreundersøkelse</h1>
         {polls?.map((poll) => (
           <form onSubmit={formSubmit} key={poll.id}>
             <p>{poll.question}</p>
@@ -92,7 +92,7 @@ const PollPage = () => {
               onChange={handleCheckBox}
             />
 
-            <button type="submit">Submit poll</button>
+            <button type="submit">Send inn spørreundersøkelse</button>
           </form>
         ))}
       </div>

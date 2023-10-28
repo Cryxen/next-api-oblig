@@ -66,6 +66,7 @@ const CreatePoll = () => {
 
   return (
     <Layout>
+      <div className="createNewPoll">
       <h1>Lag spørreundersøkelse!</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -93,6 +94,7 @@ const CreatePoll = () => {
         />
         <button type="submit">Lag undersøkelse</button>
       </form>
+      </div>
     </Layout>
   );
 };

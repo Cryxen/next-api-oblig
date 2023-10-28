@@ -1,0 +1,15 @@
+.createNewPoll {
+    form {
+        display: flex;
+        flex-direction: column;
+        max-width: fit-content;
+        label {
+            font-size: large;
+            font-weight: 400;
+        }
+        button {
+            font-size: large;
+            margin-top: 1rem;
+        }
+    }
+}
