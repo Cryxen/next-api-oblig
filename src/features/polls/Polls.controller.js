@@ -7,6 +7,7 @@ export const createPoll = async (req, res) => {
   //Lag validering
 
   //Send til service create poll
+  console.log(poll)
   const createdPoll = await pollsService.addToPoll(poll);
   console.log("Inside polls controller");
   if (createdPoll.success) {

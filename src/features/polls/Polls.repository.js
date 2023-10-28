@@ -42,6 +42,9 @@ export const addToPoll = async ({
   userId,
 }) => {
   try {
+    console.log("trying to add poll")
+    console.log(userId)
+    
     const newPoll = await prisma.Poll.create({
       data: {
         question,
@@ -67,13 +70,8 @@ export const addToPoll = async ({
 
 export const pollDeliverPOST = async ({ username, question, checkboxes }) => {
   try {
-    console.log("Inside repo")
-    
     const temp = checkboxes.toString()
-    console.log(temp)
     checkboxes = temp
-    console.log(checkboxes)
-
     const deliverPoll = await prisma.PollDelivered.create({
       data: {
         username,
