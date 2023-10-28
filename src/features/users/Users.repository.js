@@ -1,3 +1,5 @@
+import { PrismaClient } from "@prisma/client"
+
 export const Users = []
 
 // export const addUser = (userName, userEmail) => {
@@ -9,21 +11,22 @@ export const Users = []
 //     else return({success: false, error: "Failed to push users in users repository"})
 // }
 
+const prisma = new PrismaClient()
+
 export const addUser = async (name, email) => {
     try {
         const addedUser = await prisma.User.create({data:{
             email,
             name
         }})
-        console.log(addedUser)
         return {success: true, data: addedUser}
     } catch (error) {
-        console.log(error)
         return {success: false, error: "error adding user to db"}
     }
 }
 
 export const fetchAllUsers = async () => {
+    console.log("Inside fetch user repo!")
     try {
         const usersFromDb = await prisma.User.findMany()
         return{success: true, data: usersFromDb}

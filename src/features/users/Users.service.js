@@ -5,6 +5,9 @@ import { NextResponse } from "next/server";
 
 const checkIfUserExists = async (userEmail) => {
   const usersFromDb = await fetchAllUsers();
+  console.log("Check if user exists: ")
+  console.log(usersFromDb)
+
   let matchedUser = null
   usersFromDb.data.forEach((element) => {
     if (element.email == userEmail) {
