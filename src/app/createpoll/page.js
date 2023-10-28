@@ -19,6 +19,7 @@ const CreatePoll = () => {
         checkbox1: pollQuestion1,
         checkbox2: pollQuestion2,
         checkbox3: pollQuestion3,
+        userId: localStorage.getItem("userId")
       };
 
     const isValidQuestion = validate.isQuestion(pollTitle);

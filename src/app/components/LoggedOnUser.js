@@ -11,7 +11,7 @@ const LoggedOnUser = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [loggedOnUser, setLoggedOnUser] = useState(() => {
-    const saved = localStorage.getItem("username");
+    const saved = localStorage.getItem("userName");
     const initialValue = JSON.parse(saved);
     return initialValue || "";
   });
@@ -43,26 +43,26 @@ const LoggedOnUser = () => {
       setValidationError(null);
 
       setLoggedOnUser(username);
-      const user = {name: username, email: email}
-      console.log(user)
+      const user = { name: username, email: email };
+      console.log(user);
       axios
-        .post("/api/users", (user)) // TODO: Connect to API later
+        .post("/api/users", user) // TODO: Connect to API later
         .then((response) => {
           console.log(response.data.data.id);
-        localStorage.setItem("userId", JSON.stringify(response.data.data.id));
-
+          localStorage.setItem("userId", JSON.stringify(response.data.data.id));
+          localStorage.setItem("userName", JSON.stringify(response.data.data.name))
         })
         .catch((error) => {
           console.log(error);
         });
-
-
     }
   };
   console.log(loggedOnUser);
 
+
   const logout = () => {
-    localStorage.removeItem("username");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
     setLoggedOnUser("");
   };
   if (loggedOnUser) {
@@ -75,9 +75,7 @@ const LoggedOnUser = () => {
   } else {
     return (
       <form onSubmit={handleSubmit}>
-        <div>
-          {validationError ? JSON.stringify(validationError) : null}
-        </div>
+        <div>{validationError ? JSON.stringify(validationError) : null}</div>
         <label htmlFor="usernameInput">Brukernavn: </label>
         <input
           type="text"

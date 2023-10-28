@@ -29,7 +29,7 @@ model Poll {
 
 model PollDelivered {
   id       String @id @default(cuid())
-  question String
-  checkboxes String
-  username String
+  question String?
+  checkboxes String?
+  username String?
 }

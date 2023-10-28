@@ -45,13 +45,14 @@ const PollPage = () => {
   const checkbox1 = "checkbox1";
   const checkbox2 = "checkbox2";
   const checkbox3 = "checkbox3";
-
+  const username = localStorage.getItem("userName")
+  console.log(username.replace('"', ''))
   // Button handler for submitting form
   const formSubmit = (event) => {
     const pollToSubmit = {
-      username: localStorage.getItem("username"),
+      username: username.replace('"','').replace('"', ''),
       question: event.target.firstChild.innerHTML,
-      checkedboxes: isChecked,
+      checkboxes: isChecked,
     };
     console.log(pollToSubmit);
     axios

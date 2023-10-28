@@ -28,7 +28,6 @@ export const getPolls = async () => {
 }
 
 export const pollDeliverPOST = async (data) => {
-    console.log(data)
     try {
         const pollDeliver = await pollsRepo.pollDeliverPOST(data)
         return({status: true, data: pollDeliver.data})
