@@ -1,0 +1,12 @@
+@startuml user
+:user;
+:logs in;
+:REST POST API "user" sends name and email to backend;
+:Verify name and email;
+if (Check if user already exists in db) then (exists)
+:return userId and username to frontend;
+else (doesn't exist)
+:register new user to db;
+:return userId and username to frontend;
+endif
+@enduml
